@@ -31,6 +31,11 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private boolean active = true;
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Booking> bookings;
 

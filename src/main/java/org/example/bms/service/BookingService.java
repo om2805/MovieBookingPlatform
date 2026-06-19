@@ -42,14 +42,33 @@ public class BookingService {
         Show show = showRepository.findById(bookingRequest.getShowId())
                 .orElseThrow(()->new ResourceNotFoundException("Show Not Found"));
 
-        List<ShowSeat> selectedSeats=showSeatRepository.findAllById(bookingRequest.getSeatIds());
+        List<ShowSeat> selectedSeats =
+                showSeatRepository.findSeatsForUpdate(
+                        bookingRequest.getSeatIds());
 
-        for(ShowSeat seat:selectedSeats)
+        if(selectedSeats.size() != bookingRequest.getSeatIds().size())
+            throw new ResourceNotFoundException("One or more seats not found");
+
+
+        for(ShowSeat seat : selectedSeats)
         {
+            if(!seat.getShow().getId()
+                    .equals(show.getId()))
+            {
+                throw new ResourceNotFoundException(
+                        "Seat "
+                                + seat.getSeat().getSeatNumber()
+                                + " does not belong to selected show");
+            }
+
             if(!"AVAILABLE".equals(seat.getStatus()))
             {
-                throw  new SeatUnavailableException("Seat "+seat.getSeat().getSeatNumber()+" is not available");
+                throw new SeatUnavailableException(
+                        "Seat "
+                                + seat.getSeat().getSeatNumber()
+                                + " is not available");
             }
+
             seat.setStatus("LOCKED");
         }
         showSeatRepository.saveAll(selectedSeats);

@@ -5,6 +5,7 @@ import org.example.bms.dto.UserDto;
 import org.example.bms.exceptiom.ResourceNotFoundException;
 import org.example.bms.model.User;
 import org.example.bms.repo.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
