@@ -5,7 +5,6 @@ import org.example.bms.dto.UserDto;
 import org.example.bms.exceptiom.ResourceNotFoundException;
 import org.example.bms.model.User;
 import org.example.bms.repo.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,6 +47,17 @@ public class UserService {
                                 "User not found with id: " + id));
 
         userRepository.delete(user);
+
+        return mapToDto(user);
+    }
+    public UserDto getUserByEmail(
+            String email) {
+
+        User user = userRepository
+                .findByEmail(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "User not found"));
 
         return mapToDto(user);
     }

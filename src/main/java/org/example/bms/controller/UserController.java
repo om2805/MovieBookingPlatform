@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.bms.dto.UserDto;
 import org.example.bms.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +13,18 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getCurrentUser() {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
+        return ResponseEntity.ok(
+                userService.getUserByEmail(email));
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(
