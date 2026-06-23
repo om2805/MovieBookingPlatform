@@ -1,5 +1,6 @@
 package org.example.bms.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bms.dto.ShowDto;
 import org.example.bms.service.ShowService;
@@ -19,7 +20,7 @@ public class ShowController {
     private final ShowService showService;
 
     @PostMapping()
-    public ResponseEntity<ShowDto> createShow(@RequestBody ShowDto showDto) {
+    public ResponseEntity<ShowDto> createShow(@Valid @RequestBody ShowDto showDto) {
         return new ResponseEntity<>(showService.createShow(showDto), HttpStatus.CREATED);
     }
 
@@ -58,8 +59,7 @@ public class ShowController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             LocalDateTime endDate){
 
-        return ResponseEntity.ok(
-                showService.getShowsByDateRange(startDate, endDate)
+        return ResponseEntity.ok(showService.getShowsByDateRange(startDate, endDate)
         );
     }
 }

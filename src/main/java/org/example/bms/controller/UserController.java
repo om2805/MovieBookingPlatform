@@ -1,5 +1,6 @@
 package org.example.bms.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bms.dto.UserDto;
 import org.example.bms.service.UserService;
@@ -36,9 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDto> updateUser(
-            @PathVariable Long userId,
-            @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @Valid @RequestBody UserDto userDto) {
 
         return ResponseEntity.ok(
                 userService.updateUser(userId, userDto)

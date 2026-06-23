@@ -1,5 +1,6 @@
 package org.example.bms.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bms.dto.AuthResponseDto;
 import org.example.bms.dto.LoginRequestDto;
@@ -19,13 +20,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody SignupRequestDto request) {
+    public ResponseEntity<String> signup(@Valid @RequestBody  SignupRequestDto request) {
 
         return ResponseEntity.ok(authService.signup(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginRequestDto request) {
+    public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
 
         return ResponseEntity.ok(authService.login(request));
     }

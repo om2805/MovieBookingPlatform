@@ -1,5 +1,6 @@
 package org.example.bms.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bms.dto.TheaterDto;
 import org.example.bms.service.TheaterService;
@@ -16,7 +17,7 @@ public class TheaterController {
     private final TheaterService theaterService;
 
     @PostMapping()
-    public ResponseEntity<TheaterDto> createTheater(@RequestBody TheaterDto theaterDto) {
+    public ResponseEntity<TheaterDto> createTheater(@Valid @RequestBody TheaterDto theaterDto) {
         return new ResponseEntity<>(theaterService.createTheater(theaterDto), HttpStatus.CREATED);
     }
 
@@ -36,7 +37,7 @@ public class TheaterController {
     }
 
     @PutMapping("/{theaterId}")
-    public  ResponseEntity<TheaterDto> updateTheater(@RequestBody Long theaterId,@RequestBody TheaterDto theaterDto) {
+    public  ResponseEntity<TheaterDto> updateTheater(@PathVariable Long theaterId,@Valid @RequestBody TheaterDto theaterDto) {
         return ResponseEntity.ok(
                 theaterService.updateTheater(theaterId, theaterDto)
         );
