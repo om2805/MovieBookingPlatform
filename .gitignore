@@ -38,7 +38,7 @@ build/
 # Backend
 backend/target/
 backend/docs/
-
+backend/generate_docx.py
 
 # Frontend
 frontend/node_modules/
