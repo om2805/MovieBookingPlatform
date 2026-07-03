@@ -31,3 +31,19 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# IntelliJ
+.idea/
+
+# Backend
+backend/target/
+backend/docs/
+backend/generate_docx.py
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+ 
+# Generated documentation
+backend/docs/
+backend/generate_docx.py
